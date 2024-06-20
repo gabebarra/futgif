@@ -50,27 +50,8 @@ client.initialize();
 
 client.on('message', async (msg) => {
   if ([sender].includes(msg.from)) {
-    console.log('Enviado por = ', msg.from);
-
-    if (msg.hasMedia) {
-      const media = await msg.downloadMedia();
-      console.log('Mídia baixada: ', media.filesize);
-
-      try {
-        await client.sendMessage(receiver, media, { caption: msg.body });
-        console.log('Mensagem enviada: ', msg.body);
-      } catch (err) {
-        console.log('Mensagem não enviada: ', err.message);
-      }
-    } else {
-      try {
-        await client.sendMessage(receiver, msg.body);
-        console.log('Mensagem enviada: ', msg.body);
-      } catch (err) {
-        console.log('Mensagem não enviada: ', msg.body);
-      }
-    }
-
     await sleep(Math.random() * (2000 - 700) + 700);
+    await msg.forward(receiver);
+    console.log('Mensagem enviada!');
   }
 });
