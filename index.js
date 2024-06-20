@@ -54,13 +54,21 @@ client.on('message', async (msg) => {
 
     if (msg.hasMedia) {
       const media = await msg.downloadMedia();
-      await client.sendMessage(receiver, media, { caption: msg.body });
+      console.log('Mídia baixada: ', media.filesize);
 
-      console.log('Mensagem: ', msg.body);
+      try {
+        await client.sendMessage(receiver, media, { caption: msg.body });
+        console.log('Mensagem enviada: ', msg.body);
+      } catch (err) {
+        console.log('Mensagem não enviada: ', err.message);
+      }
     } else {
-      await client.sendMessage(receiver, msg.body);
-
-      console.log('Mensagem: ', msg.body);
+      try {
+        await client.sendMessage(receiver, msg.body);
+        console.log('Mensagem enviada: ', msg.body);
+      } catch (err) {
+        console.log('Mensagem não enviada: ', msg.body);
+      }
     }
 
     await sleep(Math.random() * (2000 - 700) + 700);
