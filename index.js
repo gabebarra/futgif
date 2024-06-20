@@ -50,7 +50,7 @@ client.initialize();
 
 client.on('message', async (msg) => {
   if ([sender].includes(msg.from)) {
-    await sleep(Math.random() * 3000 + 1000);
+    await sleep(Math.random() * 5000 + 1000);
     await msg.forward(receiver);
     console.log('Mensagem enviada!');
   }
